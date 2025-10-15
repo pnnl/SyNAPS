@@ -1,0 +1,78 @@
+ANDES 1.9.3
+Copyright (C) 2015-2022 Hantao Cui
+
+ANDES comes with ABSOLUTELY NO WARRANTY
+Case file: c:\Users\hoss258\Projects_2324\ecomp_code_publish\ecomp-stability\SyNAPS\cases\Case_14bus_v3\ieee14AC_with_dc_mod.xlsx
+Report time: 09/30/2025 04:47:18 PM
+
+Power flow converged in 4 iterations.
+Flat-start: No
+
+Statistics:
+Buses                             14
+Generators                         5
+Committed Gens                     5
+Loads                             11
+Shunts                             2
+Lines                             20
+Transformers                       4
+Areas                              2
+
+EXTENDED SUMMARY:
+                              P (pu)            Q (pu)
+
+Generation                    2.7517            1.4858
+Load                          2.6579             1.326
+
+BUS DATA:
+                            Bus Name            Vm(pu)          Va(rad.)
+
+1                               BUS1              1.03        1.9617e-16
+2                               BUS2              1.03         -0.049481
+3                               BUS3              1.01         -0.091918
+4                               BUS4            0.9977          -0.11302
+5                               BUS5            1.0043          -0.10549
+6                               BUS6              1.03          -0.23718
+7                               BUS7           0.99315          -0.13687
+8                               BUS8              1.03         -0.076563
+9                               BUS9           0.97042          -0.18974
+10                             BUS10           0.97235          -0.19383
+11                             BUS11           0.97925          -0.23058
+12                             BUS12           0.99448          -0.26559
+13                             BUS13           0.96004          -0.27687
+14                             BUS14           0.90974          -0.25782
+
+LINE DATA:
+                           Line Name     Fr. Bus (idx)      To Bus (idx)       P From (pu)       Q From (pu)         P To (pu)         Q To (pu)
+
+Line_1                        Line_1                 1                 2           0.80739          -0.27051          -0.79441           0.25413
+Line_2                        Line_2                 1                 5           0.49431        -0.0015678          -0.48183         0.0021513
+Line_3                        Line_3                 2                 3           0.23549          0.029658          -0.23291         -0.064362
+Line_4                        Line_4                 2                 4           0.39342          0.052752          -0.38467         -0.061152
+Line_5                        Line_5                 2                 5            0.3485          0.028824          -0.34186         -0.044358
+Line_6                        Line_6                 3                 4           0.13291          0.015346          -0.13172         -0.025203
+Line_7                        Line_7                 4                 5          -0.20801         -0.090739            0.2087          0.092917
+Line_8                        Line_8                 6                11          0.074989           0.22712         -0.069867           -0.2164
+Line_9                        Line_9                 6                12           0.14885            0.0731          -0.14566         -0.066469
+Line_10                      Line_10                 6                13           0.46515           0.32293          -0.44516          -0.28355
+Line_11                      Line_11                 7                 9           0.46298           0.21744          -0.46298          -0.18826
+Line_12                      Line_12                 9                10          0.032718         -0.034321         -0.032642          0.034523
+Line_13                      Line_13                 9                14           0.26868          0.099057          -0.25761         -0.075514
+Line_14                      Line_14                10                11           0.14264         -0.092523          -0.14013          0.098395
+Line_15                      Line_15                12                13           0.10966          0.050469          -0.10641         -0.047523
+Line_16                      Line_16                13                14           0.01657           0.13108         -0.013332          -0.12449
+Line_17                      Line_17                 4                 7           0.11298          0.023043          -0.11298          -0.02025
+Line_18                      Line_18                 4                 9           0.13342          0.054051          -0.13342         -0.042473
+Line_19                      Line_19                 6                 5          -0.53899           0.14041           0.53899         -0.066711
+Line_20                      Line_20                 8                 7              0.35           0.22601             -0.35          -0.19719
+
+OTHER ALGEBRAIC VARIABLES:
+                                    
+
+q PV 2                       0.49236
+q PV 3                       0.20098
+q PV 4                       0.83855
+q PV 5                       0.22601
+q Slack 1                   -0.27208
+p Slack 1                     1.3017
+

@@ -5,7 +5,8 @@ def case_files(base_path):
     This function is used to get the file names based on the case specificed by the user.
     '''
     print('User provided Case Name:',base_path.split(os.path.sep)[-1])
-    if base_path.split(os.path.sep)[-1] == 'Case_14bus':
+    if 'Case_14bus' in base_path.split(os.path.sep)[-1]:
+    # if base_path.split(os.path.sep)[-1] == 'Case_14bus_v1':
         dc_case_name = os.path.join(base_path, "mtdc_net_14AC.xlsx")
         ac_case_name_base = os.path.join(base_path, "ieee14AC.xlsx")
         ac_case_name_pf = os.path.join(base_path, "ieee14AC_with_dc_mod.xlsx")
@@ -13,15 +14,7 @@ def case_files(base_path):
         eq_data_file = os.path.join(base_path, "pf_info_"+ base_path.split(os.path.sep)[-1]+".xlsx")
         eq_data_file_extended = os.path.join(base_path, "pf_info_extended"+ base_path.split(os.path.sep)[-1] + ".xlsx")
 
-    if base_path.split(os.path.sep)[-1] == 'Case_5bus':
-        dc_case_name = os.path.join(base_path, "mtdc_net_5AC.xlsx")
-        ac_case_name_base = os.path.join(base_path, "5BusAC.xlsx")
-        ac_case_name_pf = os.path.join(base_path, "5BusAC_with_dc_mod.xlsx")
-        ac_case_name = os.path.join(base_path, "5BusAC_ss.xlsx")
-        eq_data_file = os.path.join(base_path, "pf_info_"+ base_path.split(os.path.sep)[-1]+".xlsx")
-        eq_data_file_extended = os.path.join(base_path, "pf_info_extended"+ base_path.split(os.path.sep)[-1] + ".xlsx")
-
-    if base_path.split(os.path.sep)[-1] == 'Case_5bus_v2':
+    if 'Case_5bus' in base_path.split(os.path.sep)[-1]:
         dc_case_name = os.path.join(base_path, "mtdc_net_5AC.xlsx")
         ac_case_name_base = os.path.join(base_path, "5BusAC.xlsx")
         ac_case_name_pf = os.path.join(base_path, "5BusAC_with_dc_mod.xlsx")

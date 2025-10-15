@@ -56,3 +56,18 @@ class get_ac_model(object):
         print('Current status of GFL params:', self.gfl_pars)
         print('Current status of GFM params:', self.gfm_pars)
 
+        self.gen_base_conv_factor = [list(self.gen['Sn'])[k]/self.baseMVA for k in range(len(self.gen))]
+        print('SG correction factor',self.gen_base_conv_factor)
+        self.gen['M'] = [list(self.gen['M'])[k]*self.gen_base_conv_factor[k] for k in range(len(self.gen))]
+        self.gen['D'] = [list(self.gen['D'])[k]/self.gen_base_conv_factor[k] for k in range(len(self.gen))]
+        self.gen['xd'] = [list(self.gen['xd'])[k]/self.gen_base_conv_factor[k] for k in range(len(self.gen))] 
+        self.gen['xq'] = [list(self.gen['xq'])[k]/self.gen_base_conv_factor[k] for k in range(len(self.gen))]
+        self.gen['xd1'] = [list(self.gen['xd1'])[k]/self.gen_base_conv_factor[k] for k in range(len(self.gen))]   
+        self.gen['xq1'] = [list(self.gen['xq1'])[k]/self.gen_base_conv_factor[k] for k in range(len(self.gen))]  
+        self.gen['xd2'] = [list(self.gen['xd2'])[k]/self.gen_base_conv_factor[k] for k in range(len(self.gen))]   
+        self.gen['xq2'] = [list(self.gen['xq2'])[k]/self.gen_base_conv_factor[k] for k in range(len(self.gen))]  
+        self.gen['ra'] = [list(self.gen['ra'])[k]/self.gen_base_conv_factor[k] for k in range(len(self.gen))]  
+
+        # self.gfl_base_conv_factor = [list(self.gfl['Sn'])[k]/self.baseMVA for k in range(len(self.gfl))]
+        # self.gfl['xq'] = [list(self.gfl['xq'])[k]/self.gfl_base_conv_factor[k] for k in range(len(self.gfl))]
+        # self.gfl['ra'] = [list(self.gfl['ra'])[k]//self.gfl_base_conv_factor[k] for k in range(len(self.gfl))]
