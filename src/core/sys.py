@@ -71,3 +71,5 @@ class get_ac_model(object):
         # self.gfl_base_conv_factor = [list(self.gfl['Sn'])[k]/self.baseMVA for k in range(len(self.gfl))]
         # self.gfl['xq'] = [list(self.gfl['xq'])[k]/self.gfl_base_conv_factor[k] for k in range(len(self.gfl))]
         # self.gfl['ra'] = [list(self.gfl['ra'])[k]//self.gfl_base_conv_factor[k] for k in range(len(self.gfl))]
+
+        print(self.gen)
