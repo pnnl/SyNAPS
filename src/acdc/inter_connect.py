@@ -6,12 +6,6 @@ def DC_injection_inclusion_v1(system0,bus0,model0,alg0,dc_system0,dc_syms0):
     This function is to locate the dc-ac interface buses and update ac-side symbolic algebraic equations to 
     include the dc injections with droop parameters.
     '''
-
-    # model0.P_ref = [-dc_syms0.v_dc[dc_system0.dcac_interface_dcbus[k]-1]\
-    #             *dc_syms0.i_dc[dc_system0.dcac_interface_dcbus[k]-1] \
-    #                             for k in range(len(model0.gfl_idx))]
-    
-    # print(model0.P_ref)
     for k in range(len(system0.gfl)):
         r = np.where(alg0.extended_resource_name.astype(str)==list(system0.gfl['name'])[k])[0]
         # old_bus_idx = alg0.extended_resource_name[r,2][0] - 1
