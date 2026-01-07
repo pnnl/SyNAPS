@@ -39,8 +39,11 @@ def equ_val_assignment(dc_network,dc_system,dc_syms,ac_ext_net_sol,system,bus,mo
         values[model.w_gfl[k]] = 1
         values[model.gfl_id[k]] = ac_ext_net_sol.Idext[new_bus_idx]
         values[model.gfl_iq[k]] = ac_ext_net_sol.Iqext[new_bus_idx]
-        values[model.Q_ref[k]] = ac_ext_net_sol.Qg[new_bus_idx]
-
+        values[model.Q_ref[k]] = ac_ext_net_sol.Qg[old_bus_idx]
+        values[model.Q_loss[k]] = ac_ext_net_sol.Qg[new_bus_idx] - values[model.Q_ref[k]] 
+        values[model.V_pf[k]] = bus.v[old_bus_idx]
+        values[model.P_loss[k]] = ac_ext_net_sol.Pg[new_bus_idx] - \
+            (-(Vdc_eq[dc_system.dcac_interface_dcbus[k]-1])*(Idc_eq[dc_system.dcac_interface_dcbus[k]-1]))
         if (old_bus_idx+1) not in dc_system.dcac_interface_acbus:
             values[model.P_ref[k]] = ac_ext_net_sol.Pg[new_bus_idx]
 
@@ -60,7 +63,7 @@ def equ_val_assignment(dc_network,dc_system,dc_syms,ac_ext_net_sol,system,bus,mo
         r = np.where(alg.extended_resource_name.astype(str)==list(system.gen['name'])[k])[0]
         old_bus_idx = alg.extended_resource_name[r,2][0] - 1
         new_bus_idx = alg.extended_resource_name[r,3][0] - 1
-        values[model.Q_g[k]] = ac_ext_net_sol.Qg[new_bus_idx]  
+        values[model.Q_g[k]] = ac_ext_net_sol.Qg[new_bus_idx]  #this is new bus index as the vars are added in the new bus (see ac_network.py)
         values[model.P_g[k]] = ac_ext_net_sol.Pg[new_bus_idx]
         values[model.w_gen[k]] = 1
     for k in model.order_4_gens:

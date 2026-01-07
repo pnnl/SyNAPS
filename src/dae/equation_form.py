@@ -61,7 +61,9 @@ class DAE(object):
                        - self.model.xq1[k]*self.model.iq[k] - self.model.ed1[k]
                                 for k in range(len(self.model.gen_idx)) if self.model.gen_order[k] == 4]  
 
-        # assuming Pg and Pl are all numbers g(.) = Pinj + Pl - Pg = 0 
+        ''' 
+        g(.) = Pinj + P_load - P_gen = 0, this is taken care in ac_network.py and inter_connect.py
+        '''
         self.g = self.network_equations.P_inj + self.network_equations.Q_inj 
  
         if len(self.model.order_4_gens) != 0:

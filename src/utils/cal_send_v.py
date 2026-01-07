@@ -2,13 +2,13 @@ from sympy import *
 import numpy as np
 import cmath
 
-def calculate_sending_end_voltage(V, Pg, Qg, ra, xq):
+def calculate_sending_end_voltage(V, Pr, Qr, ra, xq):
     '''
     This function computes the internal node V,theta,P,Q values for generating resources based 
     on the external bus values.
     '''
     # Step 1: Calculate the current at the receiving end (I_r)
-    I_conj = (Pg + 1j * Qg) / V
+    I_conj = (Pr + 1j * Qr) / V
 
     I = np.conjugate(I_conj)
 
@@ -25,14 +25,16 @@ def calculate_sending_end_voltage(V, Pg, Qg, ra, xq):
     V_angle = cmath.phase(V)
 
 
-    Id0 = abs(I)*cos(V_angle - cmath.phase(I))
-    Iq0 = - abs(I)*sin(V_angle - cmath.phase(I))
+    Id0 = abs(I)*cos(cmath.phase(I) - V_angle)
+    Iq0 = abs(I)*sin(cmath.phase(I) - V_angle)
 
     Vd0 = Eq_mag*cos(Eq_angle - V_angle)
     Vq0 = Eq_mag*sin(Eq_angle - V_angle)
 
     Qg = Vq0*Id0 - Vd0*Iq0
     Pg = Vq0*Iq0 + Vd0*Id0
+
+    # print(abs(Eq*I_conj - (Pg+1j*Qg)))
 
     return Eq_mag,Eq_angle,Id0,Iq0,Pg,Qg
 

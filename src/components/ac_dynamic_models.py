@@ -222,6 +222,9 @@ class AC_Dynamic_models(object):
         self.gfl_id = [var(f"i_cd{self.gfl_idx[k]}") for k in range(len(self.gfl_idx))]
         self.zeta_gfl = [var(f"zeta{self.gfl_idx[k]}") for k in range(len(self.gfl_idx))]
         self.kappa_gfl = [var(f"kappa{self.gfl_idx[k]}") for k in range(len(self.gfl_idx))]
+        self.P_loss = [var(f"P_loss_{self.gfl_idx[k]}") for k in range(len(self.gfl_idx))]
+        self.Q_loss = [var(f"Q_loss_{self.gfl_idx[k]}") for k in range(len(self.gfl_idx))]
+        self.V_pf = [var(f"V_pf_{self.gfl_idx[k]}") for k in range(len(self.gfl_idx))]
 
     def GFL_params(self):
         '''

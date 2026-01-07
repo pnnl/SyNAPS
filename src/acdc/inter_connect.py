@@ -8,7 +8,6 @@ def DC_injection_inclusion_v1(system0,bus0,model0,alg0,dc_system0,dc_syms0):
     '''
     for k in range(len(system0.gfl)):
         r = np.where(alg0.extended_resource_name.astype(str)==list(system0.gfl['name'])[k])[0]
-        # old_bus_idx = alg0.extended_resource_name[r,2][0] - 1
         new_bus_idx = alg0.extended_resource_name[r,3][0] - 1
 
         old_bus_no = alg0.extended_resource_name[r,2][0]
@@ -16,14 +15,41 @@ def DC_injection_inclusion_v1(system0,bus0,model0,alg0,dc_system0,dc_syms0):
             model0.P_ref[k] = -dc_syms0.v_dc[dc_system0.dcac_interface_dcbus[k]-1]\
                         *dc_syms0.i_dc[dc_system0.dcac_interface_dcbus[k]-1]
 
-        alg0.Q_inj[new_bus_idx] = alg0.Q_inj[new_bus_idx] - \
-            model0.Q_ref[k]*cos(bus0.a[model0.gfl_nodes[k]-1] - model0.a_gfl[k])
+        '''
+        Add droop-based regulation to P_ref
 
-        alg0.P_inj[new_bus_idx] = alg0.P_inj[new_bus_idx] - \
-            (model0.P_ref[k]*cos(bus0.a[model0.gfl_nodes[k]-1] - model0.a_gfl[k])\
-                    + (model0.k_droop[k]*model0.gfl_cap[k])*(system0.wb/system0.wb-model0.w_gfl[k])\
-                        *cos(bus0.a[model0.gfl_nodes[k]-1] - model0.a_gfl[k]))             
+        '''
+        model0.P_ref[k] = model0.P_ref[k] + (model0.k_droop[k]*model0.gfl_cap[k])\
+                                                    *(system0.wb/system0.wb - model0.w_gfl[k])
+        ''' 
+        PCC P_gen and Q_gen by the IBRs:
 
+        PCC_P = P_ref cos(d1-dp) - Q_ref sin(d1-dp)
+        PCC_Q = P_ref sin(d1-dp) + Q_ref cos(d1-dp)
+        '''
+        cos_term = cos(bus0.a[model0.gfl_nodes[k]-1] - model0.a_gfl[k])
+        sin_term = sin(bus0.a[model0.gfl_nodes[k]-1] - model0.a_gfl[k])
+
+        PCC_P =  model0.P_ref[k]*cos_term - model0.Q_ref[k]*sin_term
+        PCC_Q =  model0.P_ref[k]*sin_term + model0.Q_ref[k]*cos_term 
+
+        ''' 
+        New added bus P_gen and Q_gen by the IBRs:
+        PCC_P + P_Loss
+        PCC_Q + Q_Loss
+        '''
+
+        ''' 
+        For any bus, P_inj = P_gen - P_load and Q_inj = Q_gen - Q_load,
+        we maintained this convention: P_inj - P_gen + P_load = 0, Q_inj - Q_gen + Q_load = 0
+        for this extended bus (or internal bus) P_load = 0, Q_load = 0,
+        therefore, we updated respective, P_inj and Q_inj with P_inj - P_gen, and Q_inj - Q_gen
+        Note, that this updated P_inj and Q_inj will be used to form the g(.) = 0 algebraic equation
+        '''
+        alg0.P_inj[new_bus_idx] = alg0.P_inj[new_bus_idx] - (PCC_P + model0.P_loss[k])
+        
+        alg0.Q_inj[new_bus_idx] = alg0.Q_inj[new_bus_idx] - (PCC_Q + model0.Q_loss[k])
+        
     dcalgeq = []
     dcalgvar = []
 

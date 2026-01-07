@@ -96,11 +96,13 @@ def extended_equ_comp(pf_saved_data,pf_data_extended,system,alg):
     Idext = list(np.zeros(len(alg.bus_extended)))
     Iqext = list(np.zeros(len(alg.bus_extended)))
 
-    Pg = list(np.zeros(len(alg.bus_extended)))
-    Qg = list(np.zeros(len(alg.bus_extended)))
+    effective_Pg = list(np.zeros(len(alg.bus_extended)))
+    effective_Qg = list(np.zeros(len(alg.bus_extended)))
 
     Vext[:len(list(system.bus['idx']))] = Veq
     Aext[:len(list(system.bus['idx']))] = Aeq
+    effective_Pg[:len(list(system.bus['idx']))] = df['Pg']
+    effective_Qg[:len(list(system.bus['idx']))] = df['Qg']  
 
     Pl = list(df['Pload'])
     Ql = list(df['Qload'])
@@ -114,7 +116,7 @@ def extended_equ_comp(pf_saved_data,pf_data_extended,system,alg):
         P_r = list(df['Pg'])[list(df['Bus No'])[orig_bus_idx]-1]*alg.extended_resource_name[k,1]
         Q_r = list(df['Qg'])[list(df['Bus No'])[orig_bus_idx]-1]*alg.extended_resource_name[k,1]
         Vext[new_bus_idx],Aext[new_bus_idx],Idext[new_bus_idx],Iqext[new_bus_idx],\
-            Pg[new_bus_idx],Qg[new_bus_idx] = \
+            effective_Pg[new_bus_idx],effective_Qg[new_bus_idx] = \
                 calculate_sending_end_voltage(V_r, P_r, Q_r, ra, xq)
 
         display_data = {}
@@ -123,8 +125,8 @@ def extended_equ_comp(pf_saved_data,pf_data_extended,system,alg):
         display_data['A_ext'] = np.array(Aext)
         display_data['Idext'] = np.array(Idext)
         display_data['Iqext'] = np.array(Iqext)
-        display_data['Pg'] = np.array(Pg)
-        display_data['Qg'] = np.array(Qg)
+        display_data['Pg'] = np.array(effective_Pg) #this is effective_Pg 
+        display_data['Qg'] = np.array(effective_Qg) #this is effective_Qg 
         display_df = pd.DataFrame(display_data)
 
         write_excel(pf_data_extended,display_df)
@@ -135,8 +137,8 @@ def extended_equ_comp(pf_saved_data,pf_data_extended,system,alg):
             Aext=Aext,
             Idext=Idext,
             Iqext=Iqext,
-            Pg=Pg,
-            Qg=Qg,
+            Pg=effective_Pg,
+            Qg=effective_Qg,
             Pl=Pl,
             Ql=Ql
         )

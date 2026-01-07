@@ -159,7 +159,8 @@ class network_equations(object):
  
     def include_load(self):
         '''
-        Including load as variable.
+        Including load as variable. This is only done for actual network buses, not for the 
+        extended (or internal) buses, as they have no loads
         ''' 
         for k in range(len(self.bus.nodes)):
             self.P_inj[k] = self.P_inj[k] + self.bus.pl[k] 
@@ -168,7 +169,11 @@ class network_equations(object):
 
     def include_gen(self):
         '''
-        Including generation as variable.
+        Including generation as variable at extended (or internal bus). 
+        Note only SG's reactive power is added as variable in the extended bus (or internal bus). 
+        In Swing Equation-based SG's active power will be reflected inside update_gen_conv_dynamics()
+        For GFL-based IBRs, the active and reactive powers are added to extended (or internal) bus 
+        in "acdc/inter_connect.py"
         ''' 
         for k in range(len(self.system.gen)):
             r = np.where(self.extended_resource_name.astype(str)==list(self.system.gen['name'])[k])[0]

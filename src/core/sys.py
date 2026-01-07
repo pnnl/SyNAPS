@@ -68,8 +68,10 @@ class get_ac_model(object):
         self.gen['xq2'] = [list(self.gen['xq2'])[k]/self.gen_base_conv_factor[k] for k in range(len(self.gen))]  
         self.gen['ra'] = [list(self.gen['ra'])[k]/self.gen_base_conv_factor[k] for k in range(len(self.gen))]  
 
-        # self.gfl_base_conv_factor = [list(self.gfl['Sn'])[k]/self.baseMVA for k in range(len(self.gfl))]
-        # self.gfl['xq'] = [list(self.gfl['xq'])[k]/self.gfl_base_conv_factor[k] for k in range(len(self.gfl))]
-        # self.gfl['ra'] = [list(self.gfl['ra'])[k]//self.gfl_base_conv_factor[k] for k in range(len(self.gfl))]
-
-        print(self.gen)
+        self.gfl_base_conv_factor = [list(self.gfl['Sn'])[k]/self.baseMVA for k in range(len(self.gfl))]
+        self.gfl['xq'] = [list(self.gfl['xq'])[k]/self.gfl_base_conv_factor[k] for k in range(len(self.gfl))]
+        self.gfl['ra'] = [list(self.gfl['ra'])[k]/self.gfl_base_conv_factor[k] for k in range(len(self.gfl))]
+        
+        self.gfm_base_conv_factor = [list(self.gfm['Sn'])[k]/self.baseMVA for k in range(len(self.gfm))]
+        self.gfm['xq'] = [list(self.gfm['xq'])[k]/self.gfm_base_conv_factor[k] for k in range(len(self.gfm))]
+        self.gfm['ra'] = [list(self.gfm['ra'])[k]/self.gfm_base_conv_factor[k] for k in range(len(self.gfm))]
